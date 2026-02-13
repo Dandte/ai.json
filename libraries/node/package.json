@@ -47,7 +47,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dandte/iajson-node.git"
+    "url": "https://github.com/Dandte/ai.json.git"
   },
   "homepage": "https://github.com/Dandte/ai.json",
   "engines": {

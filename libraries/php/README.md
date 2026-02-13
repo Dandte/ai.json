@@ -381,4 +381,4 @@ This library implements the ia.json v1.0.0 specification:
 
 ## License
 
-MIT License. See the [ia.json project](https://github.com/iajson/iajson) for the full specification.
+MIT License. See the [ia.json project](https://github.com/Dandte/ai.json) for the full specification.

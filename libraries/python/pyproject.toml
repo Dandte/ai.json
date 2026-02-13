@@ -37,7 +37,7 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/Dandte/ai.json"
-Repository = "https://github.com/Dandte/iajson-python"
+Repository = "https://github.com/Dandte/ai.json"
 Documentation = "https://github.com/Dandte/ai.json/tree/main/docs"
 
 [tool.hatch.build.targets.wheel]
