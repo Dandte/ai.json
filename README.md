@@ -68,6 +68,7 @@ See [How AIs Consume ia.json](docs/how-ais-consume.md) for the full integration 
 | [examples/](examples/) | Example ia.json files |
 | [validator/](validator/) | CLI and API validator |
 | [libraries/](libraries/) | Reference libraries (Node.js, PHP, Python) |
+| [chrome-extension/](chrome-extension/) | Chrome extension to view ia.json on any site |
 | [docs/](docs/) | Documentation |
 | [website/](website/) | Project website |
 
@@ -85,6 +86,21 @@ import { IaJsonClient } from '@iajson/client';
 const client = await IaJsonClient.discover('yoursite.com');
 const products = await client.call('search_products', { q: 'laptop' });
 ```
+
+## Chrome Extension
+
+View the ia.json of any website directly from your browser.
+
+1. Download the [chrome-extension/](chrome-extension/) folder
+2. Go to `chrome://extensions` and enable **Developer mode**
+3. Click **Load unpacked** and select the folder
+4. Visit any website - the extension will detect its ia.json and show a green **IA** badge
+
+The popup displays: site info, all endpoints grouped by access level, validation status, capabilities, and raw JSON.
+
+## Generate ia.json with AI
+
+Use our [AI Generator](https://dandte.github.io/ai.json/generator.html) to create your ia.json file. Copy the prompt, paste it into ChatGPT, Claude, or any AI, and answer a few questions about your website.
 
 ## Specification
 
