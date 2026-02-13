@@ -1,5 +1,5 @@
 {
-  "name": "@iajson/client",
+  "name": "iajson-client",
   "version": "1.0.0",
   "description": "Node.js/TypeScript client library for consuming ia.json files",
   "type": "module",
@@ -43,8 +43,13 @@
     "discovery",
     "authentication"
   ],
-  "author": "ia.json contributors",
+  "author": "Dandte",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dandte/iajson-node.git"
+  },
+  "homepage": "https://github.com/Dandte/ai.json",
   "engines": {
     "node": ">=18.0.0"
   },

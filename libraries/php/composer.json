@@ -21,9 +21,9 @@
     ],
     "homepage": "https://iajson.org",
     "support": {
-        "docs": "https://iajson.org/docs",
-        "issues": "https://github.com/iajson/iajson/issues",
-        "source": "https://github.com/iajson/iajson"
+        "docs": "https://github.com/Dandte/ai.json/tree/main/docs",
+        "issues": "https://github.com/Dandte/iajson-php/issues",
+        "source": "https://github.com/Dandte/iajson-php"
     },
     "require": {
         "php": "^8.1",

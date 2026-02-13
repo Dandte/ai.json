@@ -36,10 +36,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://iajson.org"
-Repository = "https://github.com/iajson/iajson"
-Documentation = "https://iajson.org/docs"
-Specification = "https://iajson.org/spec"
+Homepage = "https://github.com/Dandte/ai.json"
+Repository = "https://github.com/Dandte/iajson-python"
+Documentation = "https://github.com/Dandte/ai.json/tree/main/docs"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/iajson"]
