@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate ia.json - ia.json Validator</title>
+  <meta name="description" content="Validate your ia.json file against the official schema. Paste your JSON or enter a URL.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="8" width="44" height="44" rx="8" fill="#1a365d"/>
+          <text x="12" y="40" font-family="monospace" font-size="22" font-weight="bold" fill="white">IA</text>
+          <text x="54" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#1a365d">ia.json</text>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://github.com/iajson/iajson/blob/main/spec.md" target="_blank">Spec</a></li>
+        <li><a href="https://github.com/iajson/iajson" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Validator -->
+  <section>
+    <div class="container">
+      <h1 class="section-title">Validate Your ia.json</h1>
+      <p class="section-subtitle">Paste your ia.json content below or enter a URL to validate against the official schema.</p>
+
+      <div class="validator-container">
+        <textarea id="json-input" class="validator-input" placeholder='Paste your ia.json here...
+
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "My Site",
+    "type": "other"
+  },
+  "api": {
+    "base_url": "https://example.com/api",
+    "public": {
+      "get_info": {
+        "method": "GET",
+        "path": "/info",
+        "description": "Get site info"
+      }
+    }
+  }
+}'></textarea>
+
+        <div class="validator-actions">
+          <button class="btn btn-primary" onclick="validateInput()">Validate JSON</button>
+          <span class="or-divider">OR</span>
+          <input type="text" id="url-input" placeholder="https://example.com/ia.json">
+          <button class="btn btn-secondary" onclick="validateUrl()">Validate URL</button>
+        </div>
+
+        <div id="result" class="validator-result"></div>
+
+        <div style="margin-top: 32px;">
+          <h3>Try an example:</h3>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+            <button class="btn btn-secondary" onclick="loadExample('minimal')" style="font-size: 14px; padding: 8px 16px;">Minimal</button>
+            <button class="btn btn-secondary" onclick="loadExample('ecommerce')" style="font-size: 14px; padding: 8px 16px;">E-commerce</button>
+            <button class="btn btn-secondary" onclick="loadExample('blog')" style="font-size: 14px; padding: 8px 16px;">Blog</button>
+            <button class="btn btn-secondary" onclick="loadExample('readonly')" style="font-size: 14px; padding: 8px 16px;">Read-only API</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLI -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Command Line Validator</h2>
+      <p class="section-subtitle">Prefer the terminal? Use the CLI validator.</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre># Validate a local file
+npx ia-json-validator ./ia.json
+
+# Validate a remote URL
+npx ia-json-validator https://example.com/ia.json
+
+# JSON output
+npx ia-json-validator ./ia.json --format json</pre>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://github.com/iajson/iajson/blob/main/spec.md">Specification</a></li>
+        <li><a href="https://github.com/iajson/iajson">GitHub</a></li>
+      </ul>
+      <p>ia.json is an open standard released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/ia.schema.json",
+  "title": "ia.json",
+  "description": "Universal standard for AI interaction with websites. Allows sites to declare API endpoints, authentication, and security policies for AI agents.",
+  "type": "object",
+  "required": ["version", "site", "api"],
+  "properties": {
+    "version": {
+      "$ref": "defs/common.schema.json#/$defs/semver",
+      "description": "ia.json specification version"
+    },
+    "site": {
+      "$ref": "defs/site.schema.json"
+    },
+    "api": {
+      "$ref": "defs/api.schema.json"
+    },
+    "auth": {
+      "$ref": "defs/auth.schema.json"
+    },
+    "security": {
+      "$ref": "defs/security.schema.json"
+    },
+    "capabilities": {
+      "$ref": "defs/capabilities.schema.json"
+    },
+    "webhooks": {
+      "$ref": "defs/webhooks.schema.json"
+    },
+    "metadata": {
+      "$ref": "defs/metadata.schema.json"
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "version": "1.0.0",
+      "site": {
+        "name": "My Website",
+        "type": "other"
+      },
+      "api": {
+        "base_url": "https://example.com/api",
+        "public": {
+          "get_info": {
+            "method": "GET",
+            "path": "/info",
+            "description": "Get site information"
+          }
+        }
+      }
+    }
+  ]
+}

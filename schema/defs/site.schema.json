@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/site.schema.json",
+  "title": "ia.json Site Section",
+  "description": "Site metadata",
+  "type": "object",
+  "required": ["name", "type"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Human-readable site name"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Short description of the site"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ecommerce",
+        "saas",
+        "blog",
+        "api",
+        "marketplace",
+        "social",
+        "finance",
+        "education",
+        "healthcare",
+        "government",
+        "other"
+      ],
+      "description": "Type of site"
+    },
+    "url": {
+      "$ref": "common.schema.json#/$defs/httpsUrl",
+      "description": "Site URL"
+    },
+    "logo": {
+      "type": "string",
+      "description": "URL or path to site logo"
+    },
+    "currency": {
+      "$ref": "common.schema.json#/$defs/currencyCode"
+    },
+    "language": {
+      "$ref": "common.schema.json#/$defs/languageTag"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "IANA timezone identifier (e.g., America/New_York)"
+    },
+    "contact": {
+      "$ref": "common.schema.json#/$defs/email"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/capabilities.schema.json",
+  "title": "ia.json Capabilities Section",
+  "description": "Feature flags indicating what the site supports",
+  "type": "object",
+  "properties": {
+    "read": {
+      "type": "boolean",
+      "description": "Read/query data"
+    },
+    "write": {
+      "type": "boolean",
+      "description": "Create or modify data"
+    },
+    "delete": {
+      "type": "boolean",
+      "description": "Delete data"
+    },
+    "search": {
+      "type": "boolean",
+      "description": "Full-text search"
+    },
+    "checkout": {
+      "type": "boolean",
+      "description": "E-commerce checkout"
+    },
+    "user_management": {
+      "type": "boolean",
+      "description": "User account operations"
+    },
+    "webhooks": {
+      "type": "boolean",
+      "description": "Real-time event notifications"
+    },
+    "bulk_operations": {
+      "type": "boolean",
+      "description": "Batch/bulk API calls"
+    },
+    "real_time": {
+      "type": "boolean",
+      "description": "WebSocket or SSE support"
+    }
+  },
+  "patternProperties": {
+    "^x_[a-z][a-z0-9_]*$": {
+      "type": "boolean",
+      "description": "Custom capability (must start with x_)"
+    }
+  },
+  "additionalProperties": false
+}

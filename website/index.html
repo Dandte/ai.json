@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ia.json - The Universal Standard for AI Interaction with Websites</title>
+  <meta name="description" content="ia.json is an open standard that allows websites to declare how AI agents can interact with them. Like robots.txt for AI.">
+  <meta property="og:title" content="ia.json - Universal Standard for AI Interaction">
+  <meta property="og:description" content="An open standard that allows websites to declare how AI agents can interact with them.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="8" width="44" height="44" rx="8" fill="#1a365d"/>
+          <text x="12" y="40" font-family="monospace" font-size="22" font-weight="bold" fill="white">IA</text>
+          <text x="54" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#1a365d">ia.json</text>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="validator.html">Validator</a></li>
+        <li><a href="https://github.com/iajson/iajson" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>The Universal Standard for<br><span>AI Interaction</span> with Websites</h1>
+      <p>An open standard that allows any website to declare how AI agents can interact with it. Like robots.txt, but for AI.</p>
+      <div class="hero-buttons">
+        <a href="#getting-started" class="btn btn-primary">Get Started</a>
+        <a href="validator.html" class="btn btn-accent">Try the Validator</a>
+        <a href="https://github.com/iajson/iajson" class="btn btn-secondary" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is ia.json -->
+  <section id="what-is">
+    <div class="container">
+      <h2 class="section-title">What is ia.json?</h2>
+      <p class="section-subtitle">A JSON file at your domain root that tells AI agents exactly what your site can do.</p>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <span class="badge badge-gray">Existing</span>
+          <h3>robots.txt</h3>
+          <p>Tells <strong>search crawlers</strong> which pages they can index. Text-based, limited to allow/disallow rules.</p>
+        </div>
+        <div class="comparison-card">
+          <span class="badge badge-blue">Emerging</span>
+          <h3>llms.txt</h3>
+          <p>Tells <strong>LLMs</strong> about site content in Markdown format. Content-focused, no API interaction.</p>
+        </div>
+        <div class="comparison-card">
+          <span class="badge badge-green">New</span>
+          <h3>ia.json</h3>
+          <p>Tells <strong>AI agents</strong> what API endpoints exist, how to authenticate, and how to interact safely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Four simple steps from discovery to interaction.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Discover</h3>
+          <p>AI agent fetches <code>yoursite.com/ia.json</code></p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Register</h3>
+          <p>AI registers and gets API credentials (if required)</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Authenticate</h3>
+          <p>AI signs each request with HMAC signature</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Interact</h3>
+          <p>AI calls your API endpoints reliably</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Example -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Simple by Design</h2>
+      <p class="section-subtitle">Create your ia.json in 5 minutes. Here's a minimal example:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>{
+  <span class="json-key">"version"</span>: <span class="json-string">"1.0.0"</span>,
+  <span class="json-key">"site"</span>: {
+    <span class="json-key">"name"</span>: <span class="json-string">"My Store"</span>,
+    <span class="json-key">"type"</span>: <span class="json-string">"ecommerce"</span>,
+    <span class="json-key">"currency"</span>: <span class="json-string">"USD"</span>
+  },
+  <span class="json-key">"api"</span>: {
+    <span class="json-key">"base_url"</span>: <span class="json-string">"https://mystore.com/api/v1"</span>,
+    <span class="json-key">"public"</span>: {
+      <span class="json-key">"search_products"</span>: {
+        <span class="json-key">"method"</span>: <span class="json-string">"GET"</span>,
+        <span class="json-key">"path"</span>: <span class="json-string">"/products/search"</span>,
+        <span class="json-key">"description"</span>: <span class="json-string">"Search products by keyword"</span>,
+        <span class="json-key">"parameters"</span>: {
+          <span class="json-key">"q"</span>: {
+            <span class="json-key">"type"</span>: <span class="json-string">"string"</span>,
+            <span class="json-key">"required"</span>: <span class="json-bool">true</span>,
+            <span class="json-key">"description"</span>: <span class="json-string">"Search query"</span>
+          }
+        }
+      }
+    }
+  }
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Built for the AI Era</h2>
+      <p class="section-subtitle">Everything an AI agent needs to interact with your site safely and reliably.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#128269;</div>
+          <h3>API Discovery</h3>
+          <p>Declare all your endpoints with methods, parameters, and descriptions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128274;</div>
+          <h3>Authentication</h3>
+          <p>Built-in support for HMAC signing, OAuth2, API keys, and bearer tokens.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128737;</div>
+          <h3>Access Control</h3>
+          <p>Three access levels: public, AI-authenticated, and user-authorized.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9889;</div>
+          <h3>Rate Limiting</h3>
+          <p>Declare rate limits per endpoint and globally. Auto-block misbehaving agents.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128276;</div>
+          <h3>Webhooks</h3>
+          <p>Declare webhook events so AI agents can receive real-time notifications.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#9989;</div>
+          <h3>Validation</h3>
+          <p>JSON Schema for validation. CLI tool and online validator included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ecosystem -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Ecosystem</h2>
+      <p class="section-subtitle">Everything you need to implement ia.json today.</p>
+      <div class="ecosystem-grid">
+        <a href="validator.html" class="eco-card">
+          <h3>Validator</h3>
+          <p>CLI + Online</p>
+        </a>
+        <a href="https://github.com/iajson/iajson/tree/main/libraries/node" class="eco-card" target="_blank">
+          <h3>Node.js</h3>
+          <p>@iajson/client</p>
+        </a>
+        <a href="https://github.com/iajson/iajson/tree/main/libraries/php" class="eco-card" target="_blank">
+          <h3>PHP</h3>
+          <p>iajson/client</p>
+        </a>
+        <a href="https://github.com/iajson/iajson/tree/main/libraries/python" class="eco-card" target="_blank">
+          <h3>Python</h3>
+          <p>iajson</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section id="getting-started">
+    <div class="container">
+      <h2 class="section-title">Get Started</h2>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('owners')">Site Owners</button>
+        <button class="tab" onclick="switchTab('ai-devs')">AI Developers</button>
+        <button class="tab" onclick="switchTab('contributors')">Contributors</button>
+      </div>
+
+      <div id="tab-owners" class="tab-content active">
+        <h3>1. Create your ia.json file</h3>
+        <p>Place a file named <code>ia.json</code> at the root of your domain with your API endpoints.</p>
+        <h3 style="margin-top: 20px;">2. Validate it</h3>
+        <div class="code-block">
+          <pre>npx ia-json-validator https://yoursite.com/ia.json</pre>
+        </div>
+        <h3>3. Deploy</h3>
+        <p>That's it! AI agents can now discover and interact with your site.</p>
+        <p style="margin-top: 16px;"><a href="https://github.com/iajson/iajson/blob/main/docs/quickstart.md" class="btn btn-secondary">Read the Quick Start Guide</a></p>
+      </div>
+
+      <div id="tab-ai-devs" class="tab-content">
+        <h3>1. Discover a site's capabilities</h3>
+        <div class="code-block">
+          <pre><span class="json-key">import</span> { IaJsonClient } <span class="json-key">from</span> <span class="json-string">'@iajson/client'</span>;
+
+<span class="json-key">const</span> client = <span class="json-key">await</span> IaJsonClient.discover(<span class="json-string">'example.com'</span>);</pre>
+        </div>
+        <h3>2. Call endpoints</h3>
+        <div class="code-block">
+          <pre><span class="json-key">const</span> results = <span class="json-key">await</span> client.call(<span class="json-string">'search_products'</span>, { q: <span class="json-string">'laptop'</span> });</pre>
+        </div>
+        <p style="margin-top: 16px;"><a href="https://github.com/iajson/iajson/blob/main/docs/how-ais-consume.md" class="btn btn-secondary">Read the Integration Guide</a></p>
+      </div>
+
+      <div id="tab-contributors" class="tab-content">
+        <h3>Help shape the standard</h3>
+        <p>ia.json is open source and community-driven. We welcome contributions:</p>
+        <ul style="margin: 16px 0; padding-left: 24px;">
+          <li>Report issues and suggest features</li>
+          <li>Improve the specification</li>
+          <li>Add platform integrations</li>
+          <li>Build tools and libraries</li>
+        </ul>
+        <p><a href="https://github.com/iajson/iajson" class="btn btn-secondary" target="_blank">View on GitHub</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/iajson/iajson/blob/main/spec.md">Specification</a></li>
+        <li><a href="https://github.com/iajson/iajson/tree/main/docs">Documentation</a></li>
+        <li><a href="validator.html">Validator</a></li>
+        <li><a href="https://github.com/iajson/iajson">GitHub</a></li>
+      </ul>
+      <p>ia.json is an open standard released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

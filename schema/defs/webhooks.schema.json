@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/webhooks.schema.json",
+  "title": "ia.json Webhooks Section",
+  "description": "Webhook event declarations",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/webhookEvent"
+  },
+  "propertyNames": {
+    "pattern": "^[a-z][a-z0-9_]*$"
+  },
+  "$defs": {
+    "webhookEvent": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable description of the event"
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/parameter"
+          },
+          "description": "Description of the webhook payload fields"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/api.schema.json",
+  "title": "ia.json API Section",
+  "description": "API endpoint declarations organized by access level",
+  "type": "object",
+  "required": ["base_url"],
+  "properties": {
+    "base_url": {
+      "$ref": "common.schema.json#/$defs/httpsUrl",
+      "description": "Base URL for all API endpoints"
+    },
+    "public": {
+      "$ref": "#/$defs/endpointGroup",
+      "description": "Endpoints requiring no authentication"
+    },
+    "protected": {
+      "$ref": "#/$defs/endpointGroup",
+      "description": "Endpoints requiring AI agent authentication"
+    },
+    "user_required": {
+      "$ref": "#/$defs/endpointGroup",
+      "description": "Endpoints requiring user authorization"
+    }
+  },
+  "anyOf": [
+    { "required": ["public"] },
+    { "required": ["protected"] },
+    { "required": ["user_required"] }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "endpointGroup": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/endpoint"
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "required": ["method", "path", "description"],
+      "properties": {
+        "method": {
+          "$ref": "common.schema.json#/$defs/httpMethod"
+        },
+        "path": {
+          "$ref": "common.schema.json#/$defs/urlPath",
+          "description": "URL path appended to base_url"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable description of the endpoint"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/parameter"
+          },
+          "description": "Query or path parameters"
+        },
+        "body": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/parameter"
+          },
+          "description": "Request body fields (for POST/PUT/PATCH)"
+        },
+        "response": {
+          "type": "object",
+          "description": "Response schema description",
+          "additionalProperties": true
+        },
+        "rate_limit": {
+          "$ref": "common.schema.json#/$defs/rateLimitString",
+          "description": "Endpoint-specific rate limit"
+        },
+        "scopes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Required OAuth2 scopes"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this endpoint is deprecated"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

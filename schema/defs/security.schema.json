@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/security.schema.json",
+  "title": "ia.json Security Section",
+  "description": "Security policies for AI agent interactions",
+  "type": "object",
+  "properties": {
+    "https_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether HTTPS is required for all requests"
+    },
+    "rate_limit": {
+      "$ref": "common.schema.json#/$defs/rateLimitString",
+      "description": "Global rate limit for all endpoints"
+    },
+    "verify_signature": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether request signatures are verified"
+    },
+    "max_request_size": {
+      "type": "string",
+      "pattern": "^\\d+(kb|mb)$",
+      "description": "Maximum request body size (e.g., 1mb, 512kb)"
+    },
+    "allowed_origins": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed origins for CORS"
+    },
+    "ip_whitelist": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed IP addresses or CIDR ranges"
+    },
+    "auto_block": {
+      "type": "object",
+      "required": ["failed_attempts", "window_minutes", "block_duration_minutes"],
+      "properties": {
+        "failed_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of failed attempts before blocking"
+        },
+        "window_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Time window for counting failures (minutes)"
+        },
+        "block_duration_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "How long to block the agent (minutes)"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

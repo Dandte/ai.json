@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "WeatherAPI",
+    "description": "Free weather data API",
+    "type": "api",
+    "url": "https://weather.example.com",
+    "language": "en",
+    "contact": "support@weather.example.com"
+  },
+  "api": {
+    "base_url": "https://api.weather.example.com/v1",
+    "public": {
+      "get_current": {
+        "method": "GET",
+        "path": "/weather/current",
+        "description": "Get current weather for a location",
+        "parameters": {
+          "lat": {
+            "type": "number",
+            "required": true,
+            "description": "Latitude",
+            "example": 40.7128
+          },
+          "lon": {
+            "type": "number",
+            "required": true,
+            "description": "Longitude",
+            "example": -74.006
+          },
+          "units": {
+            "type": "string",
+            "required": false,
+            "description": "Temperature units",
+            "enum": ["metric", "imperial"],
+            "default": "metric"
+          }
+        },
+        "rate_limit": "60/minute"
+      },
+      "get_forecast": {
+        "method": "GET",
+        "path": "/weather/forecast",
+        "description": "Get 7-day weather forecast",
+        "parameters": {
+          "lat": {
+            "type": "number",
+            "required": true,
+            "description": "Latitude"
+          },
+          "lon": {
+            "type": "number",
+            "required": true,
+            "description": "Longitude"
+          },
+          "days": {
+            "type": "integer",
+            "required": false,
+            "description": "Number of forecast days",
+            "default": 7,
+            "min": 1,
+            "max": 14
+          }
+        },
+        "rate_limit": "30/minute"
+      },
+      "search_location": {
+        "method": "GET",
+        "path": "/locations/search",
+        "description": "Search for a location by name",
+        "parameters": {
+          "q": {
+            "type": "string",
+            "required": true,
+            "description": "Location name",
+            "example": "New York"
+          }
+        },
+        "rate_limit": "30/minute"
+      }
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "1000/day"
+  },
+  "capabilities": {
+    "read": true,
+    "search": true
+  },
+  "metadata": {
+    "created": "2026-01-01T00:00:00Z",
+    "updated": "2026-02-12T00:00:00Z",
+    "spec_version": "1.0.0",
+    "generator": "manual",
+    "docs_url": "https://weather.example.com/docs"
+  }
+}

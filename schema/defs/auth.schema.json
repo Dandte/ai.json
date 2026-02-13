@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/auth.schema.json",
+  "title": "ia.json Auth Section",
+  "description": "Authentication methods configuration",
+  "type": "object",
+  "properties": {
+    "signed_key": {
+      "type": "object",
+      "description": "AI agent key-based authentication with request signing",
+      "required": ["register_url", "algorithm"],
+      "properties": {
+        "register_url": {
+          "type": "string",
+          "description": "URL for AI agent registration"
+        },
+        "algorithm": {
+          "type": "string",
+          "enum": ["sha256", "sha512"],
+          "description": "HMAC signing algorithm"
+        },
+        "header_prefix": {
+          "type": "string",
+          "default": "X-IA-",
+          "description": "Prefix for authentication headers"
+        },
+        "key_rotation_days": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Days before key rotation is required"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2": {
+      "type": "object",
+      "description": "OAuth2 for user authorization",
+      "required": ["authorization_url", "token_url", "scopes"],
+      "properties": {
+        "authorization_url": {
+          "type": "string",
+          "description": "OAuth2 authorization endpoint"
+        },
+        "token_url": {
+          "type": "string",
+          "description": "OAuth2 token endpoint"
+        },
+        "scopes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "minProperties": 1,
+          "description": "Available scopes (key: scope name, value: description)"
+        },
+        "grant_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["authorization_code", "client_credentials"]
+          },
+          "default": ["authorization_code"],
+          "description": "Supported OAuth2 grant types"
+        },
+        "pkce_required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether PKCE is required"
+        }
+      },
+      "additionalProperties": false
+    },
+    "api_key": {
+      "type": "object",
+      "description": "Simple API key authentication",
+      "required": ["header"],
+      "properties": {
+        "header": {
+          "type": "string",
+          "description": "Header name for the API key"
+        },
+        "request_url": {
+          "type": "string",
+          "description": "URL to request an API key"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bearer": {
+      "type": "object",
+      "description": "Bearer token authentication",
+      "required": ["token_url"],
+      "properties": {
+        "token_url": {
+          "type": "string",
+          "description": "URL to obtain a bearer token"
+        },
+        "expires_in": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Token lifetime in seconds"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "minProperties": 1,
+  "additionalProperties": false
+}

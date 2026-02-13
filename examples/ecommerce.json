@@ -1,0 +1,304 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "TechStore",
+    "description": "Online electronics and gadgets store",
+    "type": "ecommerce",
+    "url": "https://techstore.example.com",
+    "logo": "https://techstore.example.com/logo.png",
+    "currency": "USD",
+    "language": "en",
+    "timezone": "America/New_York",
+    "contact": "api@techstore.example.com"
+  },
+  "api": {
+    "base_url": "https://techstore.example.com/api/v1",
+    "public": {
+      "list_products": {
+        "method": "GET",
+        "path": "/products",
+        "description": "List all products with pagination",
+        "parameters": {
+          "page": {
+            "type": "integer",
+            "required": false,
+            "description": "Page number",
+            "default": 1,
+            "min": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "required": false,
+            "description": "Items per page",
+            "default": 20,
+            "min": 1,
+            "max": 100
+          },
+          "category": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by category slug"
+          },
+          "sort": {
+            "type": "string",
+            "required": false,
+            "description": "Sort field",
+            "enum": ["price_asc", "price_desc", "name", "newest", "popular"],
+            "default": "popular"
+          }
+        },
+        "rate_limit": "100/minute"
+      },
+      "get_product": {
+        "method": "GET",
+        "path": "/products/{id}",
+        "description": "Get product details by ID",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "Product ID",
+            "example": "prod_abc123"
+          }
+        }
+      },
+      "search_products": {
+        "method": "GET",
+        "path": "/products/search",
+        "description": "Search products by keyword",
+        "parameters": {
+          "q": {
+            "type": "string",
+            "required": true,
+            "description": "Search query",
+            "example": "wireless headphones"
+          },
+          "min_price": {
+            "type": "number",
+            "required": false,
+            "description": "Minimum price filter"
+          },
+          "max_price": {
+            "type": "number",
+            "required": false,
+            "description": "Maximum price filter"
+          }
+        },
+        "rate_limit": "60/minute"
+      },
+      "list_categories": {
+        "method": "GET",
+        "path": "/categories",
+        "description": "List all product categories"
+      },
+      "get_product_reviews": {
+        "method": "GET",
+        "path": "/products/{id}/reviews",
+        "description": "Get reviews for a product",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "Product ID"
+          }
+        }
+      }
+    },
+    "protected": {
+      "get_inventory": {
+        "method": "GET",
+        "path": "/inventory",
+        "description": "Get current inventory levels for all products",
+        "rate_limit": "30/minute"
+      },
+      "get_product_inventory": {
+        "method": "GET",
+        "path": "/inventory/{product_id}",
+        "description": "Get inventory for a specific product",
+        "parameters": {
+          "product_id": {
+            "type": "string",
+            "required": true,
+            "description": "Product ID"
+          }
+        }
+      },
+      "check_price": {
+        "method": "GET",
+        "path": "/products/{id}/price",
+        "description": "Get real-time price including any active promotions",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "Product ID"
+          }
+        }
+      }
+    },
+    "user_required": {
+      "get_cart": {
+        "method": "GET",
+        "path": "/cart",
+        "description": "Get the current user's shopping cart",
+        "scopes": ["cart:read"]
+      },
+      "add_to_cart": {
+        "method": "POST",
+        "path": "/cart/items",
+        "description": "Add a product to the user's cart",
+        "body": {
+          "product_id": {
+            "type": "string",
+            "required": true,
+            "description": "Product ID to add"
+          },
+          "quantity": {
+            "type": "integer",
+            "required": true,
+            "description": "Quantity to add",
+            "min": 1
+          }
+        },
+        "scopes": ["cart:write"]
+      },
+      "remove_from_cart": {
+        "method": "DELETE",
+        "path": "/cart/items/{item_id}",
+        "description": "Remove an item from the user's cart",
+        "parameters": {
+          "item_id": {
+            "type": "string",
+            "required": true,
+            "description": "Cart item ID"
+          }
+        },
+        "scopes": ["cart:write"]
+      },
+      "create_order": {
+        "method": "POST",
+        "path": "/orders",
+        "description": "Create a new order from the current cart",
+        "body": {
+          "shipping_address_id": {
+            "type": "string",
+            "required": true,
+            "description": "ID of the shipping address"
+          },
+          "payment_method_id": {
+            "type": "string",
+            "required": true,
+            "description": "ID of the payment method"
+          },
+          "notes": {
+            "type": "string",
+            "required": false,
+            "description": "Order notes"
+          }
+        },
+        "scopes": ["orders:write"]
+      },
+      "list_orders": {
+        "method": "GET",
+        "path": "/orders",
+        "description": "List the user's orders",
+        "parameters": {
+          "status": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by status",
+            "enum": ["pending", "processing", "shipped", "delivered", "cancelled"]
+          }
+        },
+        "scopes": ["orders:read"]
+      },
+      "get_order": {
+        "method": "GET",
+        "path": "/orders/{id}",
+        "description": "Get details of a specific order",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "Order ID"
+          }
+        },
+        "scopes": ["orders:read"]
+      }
+    }
+  },
+  "auth": {
+    "signed_key": {
+      "register_url": "https://techstore.example.com/ia/register",
+      "algorithm": "sha256",
+      "header_prefix": "X-IA-",
+      "key_rotation_days": 90
+    },
+    "oauth2": {
+      "authorization_url": "https://techstore.example.com/oauth/authorize",
+      "token_url": "https://techstore.example.com/oauth/token",
+      "scopes": {
+        "cart:read": "View shopping cart",
+        "cart:write": "Modify shopping cart",
+        "orders:read": "View order history",
+        "orders:write": "Create orders",
+        "profile:read": "View user profile"
+      },
+      "grant_types": ["authorization_code"],
+      "pkce_required": true
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "1000/hour",
+    "verify_signature": true,
+    "max_request_size": "1mb",
+    "auto_block": {
+      "failed_attempts": 10,
+      "window_minutes": 5,
+      "block_duration_minutes": 60
+    }
+  },
+  "capabilities": {
+    "read": true,
+    "write": true,
+    "search": true,
+    "checkout": true,
+    "webhooks": true,
+    "user_management": false
+  },
+  "webhooks": {
+    "order_created": {
+      "description": "Triggered when a new order is placed",
+      "payload": {
+        "order_id": { "type": "string", "required": true, "description": "Order ID" },
+        "total": { "type": "number", "required": true, "description": "Order total" },
+        "currency": { "type": "string", "required": true, "description": "Currency code" },
+        "status": { "type": "string", "required": true, "description": "Order status" }
+      }
+    },
+    "order_shipped": {
+      "description": "Triggered when an order is shipped",
+      "payload": {
+        "order_id": { "type": "string", "required": true, "description": "Order ID" },
+        "tracking_number": { "type": "string", "required": true, "description": "Tracking number" },
+        "carrier": { "type": "string", "required": true, "description": "Shipping carrier" }
+      }
+    },
+    "product_updated": {
+      "description": "Triggered when a product's price or availability changes",
+      "payload": {
+        "product_id": { "type": "string", "required": true, "description": "Product ID" },
+        "changes": { "type": "array", "required": true, "description": "List of changed fields" }
+      }
+    }
+  },
+  "metadata": {
+    "created": "2026-01-01T00:00:00Z",
+    "updated": "2026-02-12T00:00:00Z",
+    "spec_version": "1.0.0",
+    "generator": "manual",
+    "docs_url": "https://techstore.example.com/docs/api",
+    "support_url": "https://techstore.example.com/support"
+  }
+}

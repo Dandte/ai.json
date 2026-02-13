@@ -1,0 +1,64 @@
+{
+    "name": "iajson/client",
+    "description": "PHP reference library for consuming ia.json files — the universal standard for AI interaction with websites",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "iajson",
+        "ia.json",
+        "ai",
+        "agent",
+        "api",
+        "discovery",
+        "authentication",
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "ia.json Contributors"
+        }
+    ],
+    "homepage": "https://iajson.org",
+    "support": {
+        "docs": "https://iajson.org/docs",
+        "issues": "https://github.com/iajson/iajson/issues",
+        "source": "https://github.com/iajson/iajson"
+    },
+    "require": {
+        "php": "^8.1",
+        "guzzlehttp/guzzle": "^7.5",
+        "psr/http-message": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0|^11.0",
+        "mockery/mockery": "^1.6",
+        "orchestra/testbench": "^8.0|^9.0",
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "IaJson\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IaJson\\Client\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IaJson\\Client\\Laravel\\IaJsonServiceProvider"
+            ],
+            "aliases": {
+                "IaJson": "IaJson\\Client\\Laravel\\Facades\\IaJson"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

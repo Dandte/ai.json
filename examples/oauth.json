@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "CloudDrive",
+    "description": "Cloud file storage and sharing service",
+    "type": "saas",
+    "url": "https://clouddrive.example.com",
+    "language": "en",
+    "contact": "developers@clouddrive.example.com"
+  },
+  "api": {
+    "base_url": "https://api.clouddrive.example.com/v2",
+    "public": {
+      "get_status": {
+        "method": "GET",
+        "path": "/status",
+        "description": "Get API status and version information"
+      }
+    },
+    "user_required": {
+      "list_files": {
+        "method": "GET",
+        "path": "/files",
+        "description": "List files in the user's drive",
+        "parameters": {
+          "folder_id": {
+            "type": "string",
+            "required": false,
+            "description": "Parent folder ID (root if not specified)"
+          },
+          "page": {
+            "type": "integer",
+            "required": false,
+            "description": "Page number",
+            "default": 1
+          }
+        },
+        "scopes": ["files:read"]
+      },
+      "upload_file": {
+        "method": "POST",
+        "path": "/files/upload",
+        "description": "Upload a file to the user's drive",
+        "body": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "File name"
+          },
+          "folder_id": {
+            "type": "string",
+            "required": false,
+            "description": "Destination folder ID"
+          },
+          "content": {
+            "type": "string",
+            "required": true,
+            "description": "Base64-encoded file content"
+          }
+        },
+        "scopes": ["files:write"]
+      },
+      "download_file": {
+        "method": "GET",
+        "path": "/files/{id}/download",
+        "description": "Download a file",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "File ID"
+          }
+        },
+        "scopes": ["files:read"]
+      },
+      "delete_file": {
+        "method": "DELETE",
+        "path": "/files/{id}",
+        "description": "Delete a file",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "File ID"
+          }
+        },
+        "scopes": ["files:delete"]
+      },
+      "share_file": {
+        "method": "POST",
+        "path": "/files/{id}/share",
+        "description": "Share a file with another user",
+        "parameters": {
+          "id": {
+            "type": "string",
+            "required": true,
+            "description": "File ID"
+          }
+        },
+        "body": {
+          "email": {
+            "type": "string",
+            "required": true,
+            "description": "Email of the user to share with"
+          },
+          "permission": {
+            "type": "string",
+            "required": true,
+            "description": "Permission level",
+            "enum": ["view", "edit"]
+          }
+        },
+        "scopes": ["sharing:write"]
+      }
+    }
+  },
+  "auth": {
+    "oauth2": {
+      "authorization_url": "https://clouddrive.example.com/oauth/authorize",
+      "token_url": "https://clouddrive.example.com/oauth/token",
+      "scopes": {
+        "files:read": "Read files and folders",
+        "files:write": "Upload and modify files",
+        "files:delete": "Delete files",
+        "sharing:read": "View sharing settings",
+        "sharing:write": "Manage sharing settings",
+        "profile:read": "View user profile"
+      },
+      "grant_types": ["authorization_code", "client_credentials"],
+      "pkce_required": true
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "500/hour",
+    "max_request_size": "50mb"
+  },
+  "capabilities": {
+    "read": true,
+    "write": true,
+    "delete": true,
+    "search": false
+  },
+  "metadata": {
+    "created": "2026-01-10T00:00:00Z",
+    "updated": "2026-02-01T00:00:00Z",
+    "spec_version": "1.0.0",
+    "docs_url": "https://clouddrive.example.com/developers"
+  }
+}

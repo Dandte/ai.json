@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "My Website",
+    "type": "other"
+  },
+  "api": {
+    "base_url": "https://example.com/api",
+    "public": {
+      "get_info": {
+        "method": "GET",
+        "path": "/info",
+        "description": "Get basic site information"
+      }
+    }
+  }
+}

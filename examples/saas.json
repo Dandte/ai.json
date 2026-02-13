@@ -1,0 +1,281 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "ProjectHub",
+    "description": "Project management and team collaboration platform",
+    "type": "saas",
+    "url": "https://projecthub.example.com",
+    "language": "en",
+    "timezone": "UTC",
+    "contact": "api@projecthub.example.com"
+  },
+  "api": {
+    "base_url": "https://api.projecthub.example.com/v1",
+    "public": {
+      "get_status": {
+        "method": "GET",
+        "path": "/status",
+        "description": "Get API health status"
+      }
+    },
+    "protected": {
+      "list_workspaces": {
+        "method": "GET",
+        "path": "/workspaces",
+        "description": "List workspaces the AI agent has access to"
+      },
+      "search_across_workspaces": {
+        "method": "GET",
+        "path": "/search",
+        "description": "Search across all accessible workspaces",
+        "parameters": {
+          "q": {
+            "type": "string",
+            "required": true,
+            "description": "Search query"
+          },
+          "type": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by entity type",
+            "enum": ["project", "task", "document", "comment"]
+          }
+        },
+        "rate_limit": "30/minute"
+      }
+    },
+    "user_required": {
+      "list_projects": {
+        "method": "GET",
+        "path": "/projects",
+        "description": "List user's projects",
+        "parameters": {
+          "workspace_id": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by workspace"
+          },
+          "status": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by status",
+            "enum": ["active", "archived", "completed"]
+          }
+        },
+        "scopes": ["projects:read"]
+      },
+      "create_project": {
+        "method": "POST",
+        "path": "/projects",
+        "description": "Create a new project",
+        "body": {
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "Project name"
+          },
+          "workspace_id": {
+            "type": "string",
+            "required": true,
+            "description": "Workspace ID"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Project description"
+          }
+        },
+        "scopes": ["projects:write"]
+      },
+      "list_tasks": {
+        "method": "GET",
+        "path": "/projects/{project_id}/tasks",
+        "description": "List tasks in a project",
+        "parameters": {
+          "project_id": {
+            "type": "string",
+            "required": true,
+            "description": "Project ID"
+          },
+          "status": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by status",
+            "enum": ["open", "in_progress", "review", "done"]
+          },
+          "assignee": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by assignee user ID"
+          }
+        },
+        "scopes": ["tasks:read"]
+      },
+      "create_task": {
+        "method": "POST",
+        "path": "/projects/{project_id}/tasks",
+        "description": "Create a new task",
+        "parameters": {
+          "project_id": {
+            "type": "string",
+            "required": true,
+            "description": "Project ID"
+          }
+        },
+        "body": {
+          "title": {
+            "type": "string",
+            "required": true,
+            "description": "Task title"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Task description (supports markdown)"
+          },
+          "assignee_id": {
+            "type": "string",
+            "required": false,
+            "description": "User ID to assign"
+          },
+          "priority": {
+            "type": "string",
+            "required": false,
+            "description": "Task priority",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "due_date": {
+            "type": "string",
+            "required": false,
+            "description": "Due date (ISO 8601)"
+          }
+        },
+        "scopes": ["tasks:write"]
+      },
+      "update_task": {
+        "method": "PATCH",
+        "path": "/projects/{project_id}/tasks/{task_id}",
+        "description": "Update a task",
+        "parameters": {
+          "project_id": {
+            "type": "string",
+            "required": true,
+            "description": "Project ID"
+          },
+          "task_id": {
+            "type": "string",
+            "required": true,
+            "description": "Task ID"
+          }
+        },
+        "body": {
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Task title"
+          },
+          "status": {
+            "type": "string",
+            "required": false,
+            "description": "Task status",
+            "enum": ["open", "in_progress", "review", "done"]
+          },
+          "priority": {
+            "type": "string",
+            "required": false,
+            "description": "Task priority",
+            "enum": ["low", "medium", "high", "critical"]
+          }
+        },
+        "scopes": ["tasks:write"]
+      },
+      "add_comment": {
+        "method": "POST",
+        "path": "/tasks/{task_id}/comments",
+        "description": "Add a comment to a task",
+        "parameters": {
+          "task_id": {
+            "type": "string",
+            "required": true,
+            "description": "Task ID"
+          }
+        },
+        "body": {
+          "content": {
+            "type": "string",
+            "required": true,
+            "description": "Comment text (supports markdown)"
+          }
+        },
+        "scopes": ["comments:write"]
+      }
+    }
+  },
+  "auth": {
+    "signed_key": {
+      "register_url": "https://projecthub.example.com/integrations/ia/register",
+      "algorithm": "sha256",
+      "header_prefix": "X-IA-",
+      "key_rotation_days": 60
+    },
+    "oauth2": {
+      "authorization_url": "https://projecthub.example.com/oauth/authorize",
+      "token_url": "https://projecthub.example.com/oauth/token",
+      "scopes": {
+        "projects:read": "View projects",
+        "projects:write": "Create and modify projects",
+        "tasks:read": "View tasks",
+        "tasks:write": "Create and modify tasks",
+        "comments:read": "View comments",
+        "comments:write": "Post comments",
+        "profile:read": "View user profile"
+      },
+      "grant_types": ["authorization_code"],
+      "pkce_required": true
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "2000/hour",
+    "verify_signature": true,
+    "max_request_size": "1mb",
+    "auto_block": {
+      "failed_attempts": 15,
+      "window_minutes": 10,
+      "block_duration_minutes": 30
+    }
+  },
+  "capabilities": {
+    "read": true,
+    "write": true,
+    "search": true,
+    "webhooks": true,
+    "bulk_operations": true
+  },
+  "webhooks": {
+    "task_created": {
+      "description": "Triggered when a new task is created",
+      "payload": {
+        "task_id": { "type": "string", "required": true, "description": "Task ID" },
+        "project_id": { "type": "string", "required": true, "description": "Project ID" },
+        "title": { "type": "string", "required": true, "description": "Task title" },
+        "created_by": { "type": "string", "required": true, "description": "Creator user ID" }
+      }
+    },
+    "task_completed": {
+      "description": "Triggered when a task status changes to done",
+      "payload": {
+        "task_id": { "type": "string", "required": true, "description": "Task ID" },
+        "project_id": { "type": "string", "required": true, "description": "Project ID" },
+        "completed_by": { "type": "string", "required": true, "description": "User who completed it" }
+      }
+    }
+  },
+  "metadata": {
+    "created": "2026-01-20T00:00:00Z",
+    "updated": "2026-02-10T00:00:00Z",
+    "spec_version": "1.0.0",
+    "docs_url": "https://projecthub.example.com/developers/docs",
+    "support_url": "https://projecthub.example.com/support"
+  }
+}

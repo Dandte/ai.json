@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iajson.org/schema/defs/metadata.schema.json",
+  "title": "ia.json Metadata Section",
+  "description": "File metadata",
+  "type": "object",
+  "properties": {
+    "created": {
+      "$ref": "common.schema.json#/$defs/iso8601",
+      "description": "Creation date"
+    },
+    "updated": {
+      "$ref": "common.schema.json#/$defs/iso8601",
+      "description": "Last update date"
+    },
+    "spec_version": {
+      "$ref": "common.schema.json#/$defs/semver",
+      "description": "Version of the ia.json spec used"
+    },
+    "generator": {
+      "type": "string",
+      "description": "Tool or method used to generate the file"
+    },
+    "docs_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the site's API documentation"
+    },
+    "support_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for developer support"
+    }
+  },
+  "additionalProperties": false
+}

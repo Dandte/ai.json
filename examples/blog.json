@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "TechBlog",
+    "description": "Technology news and tutorials",
+    "type": "blog",
+    "url": "https://techblog.example.com",
+    "language": "es",
+    "contact": "editor@techblog.example.com"
+  },
+  "api": {
+    "base_url": "https://techblog.example.com/api",
+    "public": {
+      "list_posts": {
+        "method": "GET",
+        "path": "/posts",
+        "description": "List published blog posts",
+        "parameters": {
+          "page": {
+            "type": "integer",
+            "required": false,
+            "description": "Page number",
+            "default": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "required": false,
+            "description": "Posts per page",
+            "default": 10,
+            "max": 50
+          },
+          "category": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by category slug"
+          },
+          "tag": {
+            "type": "string",
+            "required": false,
+            "description": "Filter by tag"
+          }
+        }
+      },
+      "get_post": {
+        "method": "GET",
+        "path": "/posts/{slug}",
+        "description": "Get a blog post by slug",
+        "parameters": {
+          "slug": {
+            "type": "string",
+            "required": true,
+            "description": "Post URL slug",
+            "example": "intro-to-ai-json"
+          }
+        }
+      },
+      "search_posts": {
+        "method": "GET",
+        "path": "/posts/search",
+        "description": "Search blog posts by keyword",
+        "parameters": {
+          "q": {
+            "type": "string",
+            "required": true,
+            "description": "Search query"
+          }
+        },
+        "rate_limit": "30/minute"
+      },
+      "list_categories": {
+        "method": "GET",
+        "path": "/categories",
+        "description": "List all categories"
+      },
+      "list_tags": {
+        "method": "GET",
+        "path": "/tags",
+        "description": "List all tags"
+      },
+      "get_post_comments": {
+        "method": "GET",
+        "path": "/posts/{slug}/comments",
+        "description": "Get comments for a post",
+        "parameters": {
+          "slug": {
+            "type": "string",
+            "required": true,
+            "description": "Post URL slug"
+          }
+        }
+      }
+    },
+    "protected": {
+      "get_analytics": {
+        "method": "GET",
+        "path": "/analytics/posts/{slug}",
+        "description": "Get view count and engagement metrics for a post",
+        "parameters": {
+          "slug": {
+            "type": "string",
+            "required": true,
+            "description": "Post URL slug"
+          }
+        },
+        "rate_limit": "20/minute"
+      }
+    }
+  },
+  "auth": {
+    "api_key": {
+      "header": "X-API-Key",
+      "request_url": "https://techblog.example.com/developers"
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "500/hour"
+  },
+  "capabilities": {
+    "read": true,
+    "search": true
+  },
+  "metadata": {
+    "created": "2026-02-01T00:00:00Z",
+    "updated": "2026-02-12T00:00:00Z",
+    "spec_version": "1.0.0",
+    "generator": "manual"
+  }
+}
