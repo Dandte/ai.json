@@ -534,6 +534,57 @@ section:nth-child(even) {
   font-weight: 600;
 }
 
+/* Generator page - prompt box */
+.prompt-box {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.prompt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+}
+
+.prompt-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.copy-btn-large {
+  padding: 8px 20px;
+  background: var(--primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.copy-btn-large:hover {
+  background: var(--primary-light);
+}
+
+.prompt-content {
+  padding: 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 {

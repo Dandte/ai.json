@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Generator - ia.json</title>
+  <meta name="description" content="Generate your ia.json file using AI. Copy this prompt and paste it into ChatGPT, Claude, or any AI to create a valid ia.json for your website.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="8" width="44" height="44" rx="8" fill="#1a365d"/>
+          <text x="12" y="40" font-family="monospace" font-size="22" font-weight="bold" fill="white">IA</text>
+          <text x="54" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="#1a365d">ia.json</text>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#how-it-works">How It Works</a></li>
+        <li><a href="validator.html">Validator</a></li>
+        <li><a href="generator.html" style="color: var(--accent); font-weight: 700;">Generator</a></li>
+        <li><a href="https://github.com/Dandte/ai.json" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="padding-bottom: 40px;">
+    <div class="container">
+      <h1>Generate your <span>ia.json</span> with AI</h1>
+      <p>Copy the prompt below and paste it into ChatGPT, Claude, Gemini, or any AI assistant. It will ask you about your website and generate a valid ia.json file.</p>
+    </div>
+  </section>
+
+  <!-- How to use -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">How to Use</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Copy the Prompt</h3>
+          <p>Click the copy button below to copy the full prompt</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Paste in your AI</h3>
+          <p>Open ChatGPT, Claude, Gemini, or any AI chat</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Answer Questions</h3>
+          <p>The AI will ask about your website and API</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Get your ia.json</h3>
+          <p>Receive a valid file ready to deploy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prompt -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">The Prompt</h2>
+      <p class="section-subtitle">This prompt contains the full ia.json specification so the AI can generate a correct file.</p>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">AI Prompt - ia.json Generator</span>
+          <button class="copy-btn-large" onclick="copyPrompt()">Copy Prompt</button>
+        </div>
+        <div class="prompt-content" id="prompt-content">You are an expert in the ia.json standard (https://github.com/Dandte/ai.json). Your task is to generate a valid ia.json file for my website based on the information I provide.
+
+## What is ia.json?
+A JSON file placed at the root of a website (https://mydomain.com/ia.json) to declare how AI agents can interact with it. It's like robots.txt but for APIs consumed by AI agents.
+
+## Required structure
+
+The file MUST have these fields:
+- "version": always "1.0.0"
+- "site": object with "name" (string, required) and "type" (required, one of: ecommerce, saas, blog, api, marketplace, social, finance, education, healthcare, government, other)
+- "api": object with "base_url" (HTTPS string, required) and at least one of: "public", "protected", "user_required"
+
+## Optional "site" fields
+- description, url, logo, currency (ISO 4217), language (BCP 47), timezone (IANA), contact (email)
+
+## Access levels in "api"
+- "public": endpoints with no authentication
+- "protected": require AI agent authentication (signed_key)
+- "user_required": require AI agent auth + user OAuth2 authorization
+
+## Endpoint format
+Each endpoint is an object with:
+- "method": GET, POST, PUT, PATCH, or DELETE (required)
+- "path": path relative to base_url (required)
+- "description": human-readable description (required)
+- "parameters": object with parameters (each has type, required, description, and optionally default, example, enum, min, max)
+- "body": for POST/PUT/PATCH, same structure as parameters
+- "rate_limit": e.g. "60/minute", "1000/hour"
+- "scopes": OAuth2 scopes array (only for user_required)
+
+Endpoint names MUST be snake_case and descriptive (e.g.: search_products, create_order).
+Path parameters use curly braces: /products/{id}
+
+## "auth" section (optional but recommended if there are protected or user_required endpoints)
+- "signed_key": { register_url, algorithm ("sha256" or "sha512"), header_prefix (default "X-IA-"), key_rotation_days }
+- "oauth2": { authorization_url, token_url, scopes (object key:description), grant_types, pkce_required }
+- "api_key": { header, request_url }
+- "bearer": { token_url, expires_in }
+
+## "security" section (optional)
+- https_required (boolean), rate_limit (e.g.: "1000/hour"), verify_signature (boolean), max_request_size (e.g.: "1mb")
+- auto_block: { failed_attempts, window_minutes, block_duration_minutes }
+
+## "capabilities" section (optional)
+Booleans: read, write, delete, search, checkout, user_management, webhooks, bulk_operations, real_time. Custom with x_ prefix (e.g.: x_gift_wrapping).
+
+## "webhooks" section (optional)
+Events the site can send. Each event: { description, payload: { field: { type, required, description } } }
+
+## "metadata" section (optional)
+- created, updated (ISO 8601), spec_version ("1.0.0"), generator, docs_url, support_url
+
+## Minimal valid example
+```json
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "My Website",
+    "type": "other"
+  },
+  "api": {
+    "base_url": "https://example.com/api",
+    "public": {
+      "get_info": {
+        "method": "GET",
+        "path": "/info",
+        "description": "Get site information"
+      }
+    }
+  }
+}
+```
+
+## Complete example (ecommerce)
+```json
+{
+  "version": "1.0.0",
+  "site": {
+    "name": "TechStore",
+    "description": "Online electronics store",
+    "type": "ecommerce",
+    "url": "https://techstore.com",
+    "currency": "USD",
+    "language": "en",
+    "contact": "api@techstore.com"
+  },
+  "api": {
+    "base_url": "https://techstore.com/api/v1",
+    "public": {
+      "search_products": {
+        "method": "GET",
+        "path": "/products/search",
+        "description": "Search products",
+        "parameters": {
+          "q": { "type": "string", "required": true, "description": "Search term" },
+          "page": { "type": "integer", "required": false, "default": 1 }
+        },
+        "rate_limit": "60/minute"
+      }
+    },
+    "protected": {
+      "get_inventory": {
+        "method": "GET",
+        "path": "/inventory",
+        "description": "View inventory levels"
+      }
+    },
+    "user_required": {
+      "create_order": {
+        "method": "POST",
+        "path": "/orders",
+        "description": "Create an order",
+        "body": {
+          "product_id": { "type": "string", "required": true },
+          "quantity": { "type": "integer", "required": true, "min": 1 }
+        },
+        "scopes": ["orders:write"]
+      }
+    }
+  },
+  "auth": {
+    "signed_key": {
+      "register_url": "https://techstore.com/ia/register",
+      "algorithm": "sha256"
+    },
+    "oauth2": {
+      "authorization_url": "https://techstore.com/oauth/authorize",
+      "token_url": "https://techstore.com/oauth/token",
+      "scopes": {
+        "orders:read": "View orders",
+        "orders:write": "Create orders"
+      },
+      "pkce_required": true
+    }
+  },
+  "security": {
+    "https_required": true,
+    "rate_limit": "1000/hour",
+    "verify_signature": true
+  },
+  "capabilities": {
+    "read": true,
+    "write": true,
+    "search": true,
+    "checkout": true
+  }
+}
+```
+
+## Instructions
+Now generate a complete and valid ia.json file for my website. Ask me about:
+1. Name and type of my website
+2. Base URL of my API
+3. What endpoints I want to expose (public, protected, user-authorized)
+4. What type of authentication I use
+5. What capabilities my site has
+
+Return ONLY the valid JSON, without additional explanations, unless you need to ask me questions first.</div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <p style="color: var(--text-light); margin-bottom: 16px;">After the AI generates your file, validate it here:</p>
+        <a href="validator.html" class="btn btn-accent">Validate your ia.json</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compatible AIs -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Works with Any AI</h2>
+      <p class="section-subtitle">This prompt works with all major AI assistants.</p>
+      <div class="ecosystem-grid">
+        <div class="eco-card">
+          <h3>ChatGPT</h3>
+          <p>OpenAI</p>
+        </div>
+        <div class="eco-card">
+          <h3>Claude</h3>
+          <p>Anthropic</p>
+        </div>
+        <div class="eco-card">
+          <h3>Gemini</h3>
+          <p>Google</p>
+        </div>
+        <div class="eco-card">
+          <h3>Any LLM</h3>
+          <p>Copilot, Llama, etc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/Dandte/ai.json/blob/main/spec.md">Specification</a></li>
+        <li><a href="https://github.com/Dandte/ai.json/tree/main/docs">Documentation</a></li>
+        <li><a href="validator.html">Validator</a></li>
+        <li><a href="https://github.com/Dandte/ai.json">GitHub</a></li>
+      </ul>
+      <p>ia.json is an open standard released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script>
+  function copyPrompt() {
+    const content = document.getElementById('prompt-content').textContent;
+    navigator.clipboard.writeText(content).then(() => {
+      const btn = document.querySelector('.copy-btn-large');
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.style.background = '#38a169';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+      }, 2500);
+    });
+  }
+  </script>
+</body>
+</html>

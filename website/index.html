@@ -8,6 +8,7 @@
   <meta property="og:title" content="ia.json - Universal Standard for AI Interaction">
   <meta property="og:description" content="An open standard that allows websites to declare how AI agents can interact with them.">
   <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,6 +27,7 @@
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="validator.html">Validator</a></li>
+        <li><a href="generator.html">Generator</a></li>
         <li><a href="https://github.com/Dandte/ai.json" target="_blank">GitHub</a></li>
       </ul>
     </div>
@@ -38,8 +40,9 @@
       <p>An open standard that allows any website to declare how AI agents can interact with it. Like robots.txt, but for AI.</p>
       <div class="hero-buttons">
         <a href="#getting-started" class="btn btn-primary">Get Started</a>
-        <a href="validator.html" class="btn btn-accent">Try the Validator</a>
-        <a href="https://github.com/Dandte/ai.json" class="btn btn-secondary" target="_blank">View on GitHub</a>
+        <a href="generator.html" class="btn btn-accent">Generate with AI</a>
+        <a href="validator.html" class="btn btn-secondary">Validate</a>
+        <a href="https://github.com/Dandte/ai.json" class="btn btn-secondary" target="_blank">GitHub</a>
       </div>
     </div>
   </section>
@@ -180,14 +183,18 @@
     <div class="container">
       <h2 class="section-title">Ecosystem</h2>
       <p class="section-subtitle">Everything you need to implement ia.json today.</p>
-      <div class="ecosystem-grid">
+      <div class="ecosystem-grid" style="grid-template-columns: repeat(5, 1fr);">
         <a href="validator.html" class="eco-card">
           <h3>Validator</h3>
           <p>CLI + Online</p>
         </a>
+        <a href="generator.html" class="eco-card">
+          <h3>Generator</h3>
+          <p>AI-powered</p>
+        </a>
         <a href="https://github.com/Dandte/ai.json/tree/main/libraries/node" class="eco-card" target="_blank">
           <h3>Node.js</h3>
-          <p>@iajson/client</p>
+          <p>iajson-client</p>
         </a>
         <a href="https://github.com/Dandte/ai.json/tree/main/libraries/php" class="eco-card" target="_blank">
           <h3>PHP</h3>
@@ -213,7 +220,7 @@
 
       <div id="tab-owners" class="tab-content active">
         <h3>1. Create your ia.json file</h3>
-        <p>Place a file named <code>ia.json</code> at the root of your domain with your API endpoints.</p>
+        <p>Place a file named <code>ia.json</code> at the root of your domain with your API endpoints. <a href="generator.html"><strong>Use our AI Generator</strong></a> to create it in minutes.</p>
         <h3 style="margin-top: 20px;">2. Validate it</h3>
         <div class="code-block">
           <pre>npx ia-json-validator https://yoursite.com/ia.json</pre>
