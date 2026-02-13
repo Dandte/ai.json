@@ -10,18 +10,23 @@ PHP reference library for consuming [ia.json](https://iajson.org) files -- the u
 
 ## Installation
 
-Add the repository to your `composer.json` and require the package:
+```bash
+# Clone the repository
+git clone https://github.com/Dandte/ai.json.git
+```
+
+Then add a path repository to your project's `composer.json`:
 
 ```json
 {
   "repositories": [
     {
-      "type": "vcs",
-      "url": "https://github.com/Dandte/ai.json"
+      "type": "path",
+      "url": "/path/to/ai.json/libraries/php"
     }
   ],
   "require": {
-    "iajson/client": "dev-main"
+    "iajson/client": "*"
   }
 }
 ```

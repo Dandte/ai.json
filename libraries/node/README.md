@@ -7,18 +7,17 @@ Requires **Node.js 18+** (uses native `fetch` and `node:crypto`). Zero productio
 ## Installation
 
 ```bash
-# Install from GitHub
-npm install github:Dandte/ai.json#main --subdirectory=libraries/node
-```
+# Clone the repository
+git clone https://github.com/Dandte/ai.json.git
 
-Or add it manually to your `package.json`:
+# Install and build the library
+cd ai.json/libraries/node
+npm install
+npm run build
 
-```json
-{
-  "dependencies": {
-    "iajson-client": "github:Dandte/ai.json"
-  }
-}
+# Then, in your project, install from the local path
+cd /path/to/your/project
+npm install /path/to/ai.json/libraries/node
 ```
 
 ## Quick Start
