@@ -14,12 +14,6 @@ PHP reference library for consuming [ia.json](https://iajson.org) files -- the u
 composer require iajson/client
 ```
 
-> Note: The package will be available on Packagist soon. In the meantime, install from GitHub:
-> ```bash
-> git clone https://github.com/Dandte/ai.json.git
-> # Add a path repository in your composer.json pointing to libraries/php/
-> ```
-
 ## Quick Start
 
 ```php
