@@ -2,6 +2,7 @@
   "name": "ia-json-validator",
   "version": "1.0.0",
   "description": "Validator for ia.json files - the universal standard for AI interaction with websites",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
