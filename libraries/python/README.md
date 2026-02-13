@@ -5,7 +5,8 @@ Python reference library for consuming [ia.json](https://iajson.org) files -- th
 ## Installation
 
 ```bash
-pip install iajson
+# Install from GitHub
+pip install "iajson @ git+https://github.com/Dandte/ai.json.git#subdirectory=libraries/python"
 ```
 
 Requires Python 3.10+. The only runtime dependency is [httpx](https://www.python-httpx.org/).
